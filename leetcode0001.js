@@ -43,8 +43,8 @@ var twoSum = function(nums, target) {
 };
 
 
-
-// Optima leetcode solution (notes): 
+// Leetcode best solution (for personal notes):
+//----------
 var twoSum = function(nums, target) {
     for (let i1 = 0; i1 < nums.length; ++i1) { // complexity reduced to one loop
         const i2 = nums.indexOf(target - nums[i1], i1 + 1); // indexOf allows a second argument to indicate the starting point of the array
