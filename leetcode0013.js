@@ -38,7 +38,7 @@ var romanToInt = function(s) {
     if(s.includes("IV")||s.includes("IX")){num -= 2} // since the sum will add IV as 1 + 5 = 6; when it is found IV it should be substract 2
     if(s.includes("XL")||s.includes("XC")){num -= 20}
     if(s.includes("CD")||s.includes("CM")){num -= 200}
-    return num;
+    return num; //problem: keeps counting wrong orders. e.g: IIIL = LIII
 };
 
 console.log(romanToInt("IV"));
