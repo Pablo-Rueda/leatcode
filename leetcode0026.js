@@ -10,24 +10,10 @@ array in-place with O(1) extra memory.
 // Solution:
 //------------
 
-
-/*
-function removeDuplicates(nums){
-    for(i itarete over elements){
-        if (i is an index of array - i){
-            remove i;
-        }
-    }
-    return nums
-}
-*/
-
-
 var removeDuplicates = function(nums) {
     let lgth = nums.length;
     let i = 0;
-    //for(let i=0;i<lgth;i++)
-    while(i<lgth){
+    while(i<lgth){ // loop throught elements of array
         if(nums.slice(i+1,nums.length).indexOf(nums[i])>=0){
             nums.splice(i,1)
             lgth -= 1;
