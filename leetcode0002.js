@@ -6,57 +6,67 @@ You may assume the two numbers do not contain any leading zero, except the numbe
 
 */
 
-// Solution (not valid solution):
-//----------
+
+// create lists nodes:
+
 function ListNode(val, next) {
     this.val = (val===undefined ? 0 : val)
     this.next = (next===undefined ? null : next)
 }
 
-function sum(a,b,c=0){
-    let sum = 0;
-    if(a == null ){
-        sum = b + c;
-    }else if(b == null){
-        sum = a + c;
-    }else{
-        sum = a + b + c;
-    }
-    return ((sum<10) ? [sum,0] : [sum%10,1]);
-}
+let l1 =    new ListNode(2,
+  new ListNode(4,
+  new ListNode(9)))
 
+let l2 = new ListNode(5,
+          new ListNode(6,
+            new ListNode(4,
+              new ListNode(9))))
+
+// Solution :
+//----------
 
 var addTwoNumbers = function(l1, l2) {
-    let val = sum(l1.val,l2.val);
-    let rem = val[1];
-    let sol = new ListNode(val[0], null);
-    
+  if( !l1 || !l2){ return l1 || l2}
 
-    deeper = sol;
-    ref1 = l1.next;
-    ref2 = l2.next;
-    
-    while(ref1 !== null || ref2 !== null){
-        
-        val = sum(ref1.val,ref2.val,rem);
-        rem = val[1];
-        deeper.next = new ListNode(val[0], null);
-        
-        deeper = deeper.next;
-        ref1 = ref1.next
-        ref2 = ref2.next
+  let splitSum = function(a,b,c=0){
+    let sum = a + b + c;
+    if(sum<10){ return [sum,0]
+    } else {    return [sum%10,1] }
+  }
+  let sum = [];
+  let rem = 0;
+  let output = new ListNode(0);
+  ref = output;
+  while(l1 || l2){    
+    if(l1 && l2){
+      sum = splitSum(l1.val, l2.val, rem);
+      l1 = l1.next; 
+      l2 = l2.next;
+    }else{
+      if(!l2){
+        sum = splitSum(l1.val, rem);
+        l1 = l1.next;
+      }else{
+        sum = splitSum(l2.val, rem);
+        l2 = l2.next;
+      }
     }
-    return sol;
+    ref.next = new ListNode(sum[0]);
+    rem = sum[1];
+    ref = ref.next;
+  }
+  if(sum[1]){ ref.next = new ListNode(sum[1]);}
+  return output.next
 };
 
-
 console.log(
-    addTwoNumbers([2,4,3], [5,6,4])
+    addTwoNumbers(l1,l2)
 )
 
 // leet code solution:
 // -------------------
-var addTwoNumbers = function(l1, l2) {
+var addTwoNumbers2 = function(l1, l2) {
     /**
      * The goal is to create a create a new list that registers the sum of digits 
      * in l1 and l2.
